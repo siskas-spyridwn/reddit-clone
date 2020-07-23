@@ -1,11 +1,16 @@
 package com.redditclone.controller;
 
 import com.redditclone.model.User;
+import com.redditclone.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 // User CRUD
 @RestController
 public class UserController {
+
+    @Autowired  // Dependency Injection SOS!!!!!!!!!!!!!
+    private UserService userService;
 
     // Create user
     @PostMapping("/user")
@@ -19,9 +24,7 @@ public class UserController {
     public User userWorld(@PathVariable(value = "userId") Long userId) {
 
         // Get from db the user with id 'userId'
-        User user = new User();
-        user.setUsername("Chris");
-        return user;
+        return userService.getUserById(userId);
     }
 
     // Update user
